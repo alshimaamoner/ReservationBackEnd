@@ -5,21 +5,20 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
-import com.org.model.Users;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.org.model.User;
 
 public interface UserService {
 
 
-	public ResponseEntity<?> createUser(Users newUser);
+    public ResponseEntity<?> createUser(User newUser);
 
-	public Users updateUser(Users newUser);
+    public User updateUser(User newUser);
 
-	public String deleteUser(BigInteger UserId);
+    public String deleteUser(Long UserId);
 
-	public Iterable<Users> displayAllUser();
+    public Iterable<User> displayAllUser();
 
-	public ResponseEntity<?> findUserById(BigInteger userId);
-	Optional<Users> findByUsername(String username,String password);
+    public ResponseEntity<?> findUserById(Long userId);
+
+    Optional<User> findByUsername(String username, String password);
 }

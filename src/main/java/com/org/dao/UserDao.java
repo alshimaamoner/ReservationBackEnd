@@ -4,9 +4,9 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import com.org.model.Users;;
+import com.org.model.User;;
 
-public interface UserDao extends CrudRepository<Users, BigInteger>{
-    @Query("from Users where name=?1 and password=?2")
-    Optional<Users> findByName(String name,String password);
+public interface UserDao extends CrudRepository<User, Long> {
+    @Query("from User where name=?1 and password=?2")
+    Optional<User> findByName(String name, String password);
 }

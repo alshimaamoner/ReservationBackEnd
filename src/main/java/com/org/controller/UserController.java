@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import com.org.exceptions.RecordAlreadyPresentException;
 import com.org.exceptions.RecordNotFoundException;
-import com.org.model.Users;
+import com.org.model.User;
 import com.org.service.UserService;
-
-import javax.validation.Valid;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @ComponentScan(basePackages = "com")
@@ -20,40 +18,40 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@PostMapping("/createUser")
-	@ExceptionHandler(RecordAlreadyPresentException.class)
-	public void addUser(@RequestBody Users newUser) {
-		System.out.println("name: "+newUser.getName());
-		userService.createUser(newUser);
-	}
+    @PostMapping("/createUser")
+    @ExceptionHandler(RecordAlreadyPresentException.class)
+    public void addUser(@RequestBody User newUser) {
+        System.out.println("name: " + newUser.getName());
+        userService.createUser(newUser);
+    }
 
-	@GetMapping("/readAllUsers")
-	public Iterable<Users> readAllUsers() {
+    @GetMapping("/readAllUsers")
+    public Iterable<User> readAllUsers() {
 
-		return userService.displayAllUser();
-	}
+        return userService.displayAllUser();
+    }
 
-	//@PutMapping("/updateUser")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public void updateUser(@RequestBody Users updateUser) {
+    //@PutMapping("/updateUser")
+    @ExceptionHandler(RecordNotFoundException.class)
+    public void updateUser(@RequestBody User updateUser) {
 
-		userService.updateUser(updateUser);
-	}
+        userService.updateUser(updateUser);
+    }
 
-	//@GetMapping("/searchUser/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<?> searchUserByID(@PathVariable("id") BigInteger userId) {
+    //@GetMapping("/searchUser/{id}")
+    @ExceptionHandler(RecordNotFoundException.class)
+    public ResponseEntity<?> searchUserByID(@PathVariable("id") Long userId) {
 
-		return userService.findUserById(userId);
-	}
+        return userService.findUserById(userId);
+    }
 
-	//@DeleteMapping("/deleteUser/{id}")
-	@ExceptionHandler(RecordNotFoundException.class)
-	public void deleteBookingByID(@PathVariable("id") BigInteger userId) {
+    //@DeleteMapping("/deleteUser/{id}")
+    @ExceptionHandler(RecordNotFoundException.class)
+    public void deleteBookingByID(@PathVariable("id") Long userId) {
 
-		userService.deleteUser(userId);
-	}
+        userService.deleteUser(userId);
+    }
 }
