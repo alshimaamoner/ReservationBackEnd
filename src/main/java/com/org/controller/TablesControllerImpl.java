@@ -5,16 +5,15 @@ import com.org.service.TablesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
 @RequestMapping("/resturant/tables")
 public class TablesControllerImpl {
+
     @Autowired
     private TablesService tablesService;
 
@@ -23,7 +22,13 @@ public class TablesControllerImpl {
         return new ResponseEntity<>(tablesService.getAllTables(), HttpStatus.OK);
     }
 
+    @PostMapping
     public ResponseEntity<Table> addTable(@RequestBody Table table) {
         return new ResponseEntity<>(tablesService.addTable(table), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Table>> getAvailableByDate(@RequestParam LocalDateTime dateTime, @RequestParam int persons) {
+        return new ResponseEntity<>(tablesService.getAvailableTables(dateTime, persons), HttpStatus.OK);
     }
 }
