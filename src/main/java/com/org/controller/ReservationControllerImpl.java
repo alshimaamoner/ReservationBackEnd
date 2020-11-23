@@ -1,15 +1,14 @@
 package com.org.controller;
 
+import com.org.dto.BookTableRequestDTO;
 import com.org.model.Reservation;
 import com.org.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,4 +24,9 @@ public class ReservationControllerImpl implements ReservationController {
         return new ResponseEntity<>(reservationService.getAllReservations(), HttpStatus.OK);
     }
 
+    @Override
+    @PostMapping
+    public ResponseEntity<Reservation> bookTable(@RequestBody @Valid BookTableRequestDTO bookTableRequestDTO) {
+        return new ResponseEntity<>(reservationService.bookTable(bookTableRequestDTO.getTableId(), bookTableRequestDTO.getUserId(), bookTableRequestDTO.getDateTime()), HttpStatus.CREATED);
+    }
 }

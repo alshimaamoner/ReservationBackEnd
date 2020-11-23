@@ -27,7 +27,7 @@ public class TablesControllerImpl {
         return new ResponseEntity<>(tablesService.addTable(table), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/available")
     public ResponseEntity<List<Table>> getAvailableByDate(@RequestParam LocalDateTime dateTime, @RequestParam int persons) {
         return new ResponseEntity<>(tablesService.getAvailableTables(dateTime, persons), HttpStatus.OK);
     }

@@ -1,18 +1,13 @@
 package com.org.model;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @javax.persistence.Table(name = "tables")
 public class Table {
     @Id
@@ -32,4 +27,52 @@ public class Table {
             }
     )
     private Set<Reservation> reservations = new HashSet<>();
+
+    public Table() {
+    }
+
+    public Table(Long id, int numberOfPersons, Set<Reservation> reservations) {
+        this.id = id;
+        this.numberOfPersons = numberOfPersons;
+        this.reservations = reservations;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Table)) return false;
+        Table table = (Table) o;
+        return numberOfPersons == table.numberOfPersons &&
+                id.equals(table.id) &&
+                Objects.equals(reservations, table.reservations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, numberOfPersons, reservations);
+    }
 }

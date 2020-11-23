@@ -1,5 +1,6 @@
 package com.org.controller;
 
+import com.org.dto.BookTableRequestDTO;
 import com.org.model.Reservation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,4 +14,6 @@ import java.util.List;
 public interface ReservationController {
     @GetMapping
     ResponseEntity<List<Reservation>> getAllReservations();
+
+    ResponseEntity<Reservation> bookTable(BookTableRequestDTO bookTableRequestDTO);
 }
